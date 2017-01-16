@@ -26,6 +26,9 @@ import CareKit
 fileprivate let carePlanStoreManager = CarePlanStoreManager.sharedCarePlanStoreManager
 fileprivate let carePlanData = CarePlanData(carePlanStore: carePlanStoreManager.store)
 fileprivate var _symptomTrackerViewController: OCKSymptomTrackerViewController? = nil
+fileprivate var insightsViewController: OCKInsightsViewController? = nil
+fileprivate var insightChart: OCKBarChart? = nil
+
 class TabBarViewController: UITabBarController {
   
   required init?(coder aDecoder: NSCoder) {
@@ -35,7 +38,8 @@ class TabBarViewController: UITabBarController {
     let symptomTrackerStack = createSymptomTrackerStack()
     let insightsStack = createInsightsStack()
     let connectStack = createConnectStack()
-
+    carePlanStoreManager.delegate = self
+    carePlanStoreManager.updateInsights()
     
     self.viewControllers = [careCardStack,
                             symptomTrackerStack,
@@ -69,7 +73,9 @@ class TabBarViewController: UITabBarController {
   }
   
   fileprivate func createInsightsStack() -> UINavigationController {
-    let viewController = UIViewController()
+    let viewController = OCKInsightsViewController(insightItems: [OCKInsightItem.emptyInsightsMessage()],
+                                                   headerTitle: "Zombie Check", headerSubtitle: "")
+    insightsViewController = viewController
     
     viewController.tabBarItem = UITabBarItem(title: "Insights", image: UIImage(named: "insights"), selectedImage: UIImage.init(named: "insights-filled"))
     viewController.title = "Insights"
@@ -77,8 +83,8 @@ class TabBarViewController: UITabBarController {
   }
   
   fileprivate func createConnectStack() -> UINavigationController {
-    let viewController = UIViewController()
-    
+    let viewController = OCKConnectViewController(contacts: carePlanData.contacts)
+    viewController.delegate = self
     viewController.tabBarItem = UITabBarItem(title: "Connect", image: UIImage(named: "connect"), selectedImage: UIImage.init(named: "connect-filled"))
     viewController.title = "Connect"
     return UINavigationController(rootViewController: viewController)
@@ -121,5 +127,30 @@ extension TabBarViewController: ORKTaskViewControllerDelegate {
                 print(error?.localizedDescription)
             }
         }
+    }
+}
+
+// MARK: - CarePlanStoreManagerDelegate
+extension TabBarViewController: CarePlanStoreManagerDelegate {
+    
+    func carePlanStore(_ store: OCKCarePlanStore, didUpdateInsights insights: [OCKInsightItem]) {
+        if let trainingPlan = (insights.filter { $0.title == "Zombie Training Plan" }.first) {
+            insightChart = trainingPlan as? OCKBarChart
+        }
+        insightsViewController?.items = insights
+    }
+}
+
+// MARK: - OCKConnectViewControllerDelegate
+extension TabBarViewController: OCKConnectViewControllerDelegate {
+    
+    func connectViewController(_ connectViewController: OCKConnectViewController,
+                               didSelectShareButtonFor contact: OCKContact,
+                               presentationSourceView sourceView: UIView?) {
+        let document = carePlanData.generateDocumentWith(chart: insightChart)
+        let activityViewController = UIActivityViewController(activityItems: [document.htmlContent],
+                                                              applicationActivities: nil)
+        
+        present(activityViewController, animated: true, completion: nil)
     }
 }

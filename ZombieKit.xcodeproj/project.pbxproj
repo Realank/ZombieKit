@@ -23,6 +23,8 @@
 		8C80EC951E2C5FBD0096A8AC /* CareKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8C80EC911E2C5FAA0096A8AC /* CareKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8C80EC991E2C63EE0096A8AC /* CarePlanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80EC981E2C63EE0096A8AC /* CarePlanData.swift */; };
 		8C80EC9B1E2C6B840096A8AC /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F3B85D1CEF84FE00B160C2 /* HealthKit.framework */; };
+		8C80ECA51E2C92EA0096A8AC /* OCKInsightItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80ECA41E2C92EA0096A8AC /* OCKInsightItem.swift */; };
+		8C80ECA71E2C939B0096A8AC /* InsightsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C80ECA61E2C939B0096A8AC /* InsightsDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		8C80EC8A1E2C5FAA0096A8AC /* CareKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CareKit.xcodeproj; path = "CareKit-master/CareKit.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		8C80EC981E2C63EE0096A8AC /* CarePlanData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarePlanData.swift; sourceTree = "<group>"; };
 		8C80EC9A1E2C6B840096A8AC /* ZombieKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZombieKit.entitlements; sourceTree = "<group>"; };
+		8C80ECA41E2C92EA0096A8AC /* OCKInsightItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCKInsightItem.swift; sourceTree = "<group>"; };
+		8C80ECA61E2C939B0096A8AC /* InsightsDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsightsDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,8 +147,8 @@
 				128434AB1CDFEA5900979CD4 /* TabBarViewController.swift */,
 				128434731CDFA28A00979CD4 /* Main.storyboard */,
 				12BEB6DF1CFCF67600F093FA /* Care Plan Store */,
-				128434A31CDFE19500979CD4 /* Linked Frameworks */,
 				12F3B8571CED5C7F00B160C2 /* Utilities */,
+				128434A31CDFE19500979CD4 /* Linked Frameworks */,
 				12F3B8601CEF856A00B160C2 /* Supporting Files */,
 			);
 			path = ZombieKit;
@@ -175,6 +179,7 @@
 				12E0A39B1D066920001706C0 /* AssessmentTaskFactory.swift */,
 				12BEB6E21CFCF68C00F093FA /* CarePlanStoreManager.swift */,
 				8C80EC981E2C63EE0096A8AC /* CarePlanData.swift */,
+				8C80ECA61E2C939B0096A8AC /* InsightsDataManager.swift */,
 			);
 			name = "Care Plan Store";
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				12F3B8551CED59BB00B160C2 /* NSDateComponents.swift */,
 				12F8DEA31D04AC700062DF98 /* UIColor.swift */,
 				12A4E9721D14DB7F00855D28 /* DataHelpers.swift */,
+				8C80ECA41E2C92EA0096A8AC /* OCKInsightItem.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -334,7 +340,9 @@
 				12BEB6E31CFCF68C00F093FA /* CarePlanStoreManager.swift in Sources */,
 				128434701CDFA28A00979CD4 /* AppDelegate.swift in Sources */,
 				12E0A39C1D066920001706C0 /* AssessmentTaskFactory.swift in Sources */,
+				8C80ECA51E2C92EA0096A8AC /* OCKInsightItem.swift in Sources */,
 				12A4E9731D14DB7F00855D28 /* DataHelpers.swift in Sources */,
+				8C80ECA71E2C939B0096A8AC /* InsightsDataManager.swift in Sources */,
 				8C80EC991E2C63EE0096A8AC /* CarePlanData.swift in Sources */,
 				12F3B8561CED59BB00B160C2 /* NSDateComponents.swift in Sources */,
 				12F8DEA41D04AC700062DF98 /* UIColor.swift in Sources */,

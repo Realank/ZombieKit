@@ -17,6 +17,35 @@ enum ActivityIdentifier: String {
 
 class CarePlanData: NSObject {
     let carePlanStore: OCKCarePlanStore
+    let contacts = [
+        OCKContact(contactType: .personal,
+                   name: "Shaun Riley",
+                   relation: "Friend",
+                   contactInfoItems:
+            [OCKContactInfo(type: .phone, display: "888-555-5512", actionURL: nil),
+             OCKContactInfo(type: .email, display: "shaunofthedead@example.com", actionURL: nil)],
+                   tintColor: nil,
+                   monogram: "SR",
+                   image: UIImage(named: "shaun-avatar")),
+        OCKContact(contactType: .careTeam,
+                   name: "Columbus Ohio",
+                   relation: "Therapist",
+                   contactInfoItems:
+            [OCKContactInfo(type: .phone, display: "88-555-5235", actionURL: nil),
+             OCKContactInfo(type: .email, display: "columbus@example.com", actionURL: nil)],
+                   tintColor: nil,
+                   monogram: "CO",
+                   image: UIImage(named: "columbus-avatar")),
+        OCKContact(contactType: .careTeam,
+                   name: "Dr Hershel Greene",
+                   relation: "Veterinarian",
+                   contactInfoItems:
+            [OCKContactInfo(type: .phone, display: "888-555-2351", actionURL: nil),
+             OCKContactInfo(type: .email, display: "dr.hershel@example.com", actionURL: nil)],
+                   tintColor: nil,
+                   monogram: "HG",
+                   image: UIImage(named: "hershel-avatar")),
+    ]
     
     class func dailyScheduleRepeating(occurencesPerDay: UInt) -> OCKCareSchedule {
         return OCKCareSchedule.dailySchedule(withStartDate: DateComponents.firstDateOfCurrentWeek,
@@ -105,5 +134,21 @@ class CarePlanData: NSObject {
             // 3
             strongSelf.carePlanStore.add(activity, completion: { _ in })
         }
+    }
+}
+
+extension CarePlanData {
+    func generateDocumentWith(chart: OCKChart?) -> OCKDocument {
+        let intro = OCKDocumentElementParagraph(content: "I've been tracking my efforts to avoid becoming a Zombie with ZombieKit. Please check the attached report to see if you're safe around me.")
+        
+        var documentElements: [OCKDocumentElement] = [intro]
+        if let chart = chart {
+            documentElements.append(OCKDocumentElementChart(chart: chart))
+        }
+        
+        let document = OCKDocument(title: "Re: Your Brains", elements: documentElements)
+        document.pageHeader = "ZombieKit: Weekly Report"
+        
+        return document
     }
 }
